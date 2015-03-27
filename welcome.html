@@ -9,13 +9,20 @@
 	-display site name
 	display group name
 -->
-<title> PaperPlanes::Login </title>
+<title> Login </title>
 <center>
 	<head>
 		<b> PaperPlanes </b> <br />
 		Come fly with us 
 	</head>
+	<body>
 
+		<form action="./Login.cgi" method="post">
+			Username: <input type="text" name="uname" maxlength="10"> <br />
+			Password: <input type="password" name="pass" maxlength="20"> <br />
+			<input type="submit" value="Login">
+		</form>
+	</body>
 </center>
 </html>
 
