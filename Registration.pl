@@ -43,7 +43,7 @@ if ($user_exists) {
 	print "</html>\n";
 }
 else {
-	open(my $fh,'>',$members_file);
+	open(my $fh,'>>',$members_file);
 	print $fh "$name $uname $pass \n";
 	close($fh);
 	
