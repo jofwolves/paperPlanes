@@ -44,6 +44,23 @@ if ($user_exists) {
 }
 else {
 	open(my $fh,'>',$members_file);
-	print "<html><head>creating account...</head></html>";
+	print $fh "$name $uname $pass \n";
+	close($fh);
+	
+	print "<html>\n";
+	print "<title> Become a Member </title>\n";
+	print "<center>\n";
+	print "	<head>\n";
+	print "		<b> PaperPlanes </b> <br />\n";
+	print "		Come fly with us. <br />\n";
+	print "	</head>\n";
+	print "	<body>\n";
+	print "		Congratulations! Your account has been created. <br />\n";
+	print "		<a href=\"http://cs.mcgill.ca/~jwolf/welcome.html\">";
+	print "			Login now and get started!\n";
+	print "		</a>\n";
+	print "	</body>\n";
+	print "</center>\n";
+	print "</html>\n";
 }
 
