@@ -1,0 +1,27 @@
+<html>
+<!-- TODO
+	form asking for name, username, password
+	submit button labeled "Register"
+	hyperref to welcome.html
+-->
+<title> Become a Member </title>
+<center>
+	<head>
+		<b> PaperPlanes </b> <br />
+		Come fly with us. <br />
+	</head>
+	<body>
+		Create an account: <br />
+		<form action="./registerUser.sh" method="post">
+			First name (alpha only):
+				<input type="text" name="name" maxlength="10"> <br />
+			Desired username:
+				<input type="text" name="uname" maxlength="10"> <br />
+			Password:
+				<input type="password" name="pass" maxlength="20"> <br />
+			<input type="submit" name="Register!">
+		</form>
+	</body>
+</center>
+</html>
+

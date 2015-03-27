@@ -54,8 +54,12 @@ int main (void){
 			else bad_pass(uname);
 			return 0;
 		}
-		while ((c = fgetc(members)) != '\n' && c != EOF);
+		while (c = fgetc(members)) {
+			if (c == EOF) break;
+			if (c == '\n' || c == '\r') continue;
+		}
 	}
+	fclose(members);
 	bad_uname(uname);
 	return 0;
 }
