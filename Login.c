@@ -3,17 +3,21 @@
 
 #define NULL_TERM '\0'
 
+int login(char *uname);
+int bad_pass(char *uname);
+int bad_uname(char *uname);
+
 int main (void){
 	int length = atoi(getenv("CONTENT_LENGTH"));
 	char input[60];
 	char c;
 	int i = 0, j;
 	while ((c = getchar()) != EOF && i < 60) {
-		if (c == '+') input[i] = ' ';
-		else input[i] = c;
+		input[i] = c;
 		i++;
 	}
 	input[i] = NULL_TERM;
+
 	char uname[11];
 	char pass[21];
 	i = 1;
@@ -29,4 +33,75 @@ int main (void){
 	pass[j] = NULL_TERM;
 
 	FILE *members = fopen("members.csv","rt");
+	while ((c = fgetc(members)) != EOF) {
+		while (fgetc(members) != ' ');
+		char uname_existing[11];
+		int i = 0;
+		while ((c = fgetc(members)) != ' ' && i < 10) {
+			uname_existing[i] = c;
+			i++;
+		}
+		uname_existing[i] = NULL_TERM;
+		if (!strcmp(uname,uname_existing)) {
+			char pass_existing[21];
+			int i = 0;
+			while ((c = fgetc(members)) != ' ' && i < 20) {
+				pass_existing[i] = c;
+				i++;
+			}
+			pass_existing[i] = NULL_TERM;
+			if (!strcmp(pass,pass_existing)) login(uname);
+			else bad_pass(uname);
+			return 0;
+		}
+		while ((c = fgetc(members)) != '\n' && c != EOF);
+	}
+	bad_uname(uname);
+	return 0;
+}
+
+const char* site_name = "http://cs.mcgill.ca/~jwolf";
+
+int html_head(void) {
+	printf("Content-Type:text/html\n\n");
+	printf("<html>\n");
+}
+
+int fail_page(char *message) {
+	html_head();
+	printf("<title> Login </title>\n");
+	printf("<center>\n");
+	printf("<head>\n");
+	printf("<b> PaperPlanes </b> <br />\n");
+	printf("Come fly with us. <br />\n");
+	printf("</head>\n");
+	printf("<body>\n");
+	printf("<color=\"red\"> %s </color> <br />\n",message);
+	printf("<a href=\"%s/welcome.html\"> Try again? </a> <br />\n",site_name);
+	printf("<a href=\"%s/register.html\"> Create an account? </a> <br />\n",site_name);
+	printf("</body>\n");
+	printf("</center>\n");
+	printf("</html>\n");
+}
+
+int login(char *uname) {
+	html_head();
+	//printf("<form action=\"./MyFacebookPage.py\" method=\"post\">\n");
+	//printf("<input type=\"hidden\" value=%s>\n",uname);
+	//printf("</form>\n");
+	printf("Success! logged in as %s",uname);
+	printf("</html>\n");
+	return 0;
+}
+
+int bad_pass(char *uname) {
+	char *message = "Incorrect password.";
+	fail_page(message);		
+	return 0;
+}
+
+int bad_uname(char *uname) {
+	char *message = "Username not found.";
+	fail_page(message);
+	return 0;
 }
