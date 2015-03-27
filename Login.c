@@ -3,9 +3,11 @@
 
 #define NULL_TERM '\0'
 
-int login(char *uname);
-int bad_pass(char *uname);
-int bad_uname(char *uname);
+int login (char *uname);
+int bad_pass (char *uname);
+int bad_uname (char *uname);
+
+int users_looped = 0; //D-TODO remove line
 
 int main (void){
 	int length = atoi(getenv("CONTENT_LENGTH"));
@@ -33,7 +35,9 @@ int main (void){
 	pass[j] = NULL_TERM;
 
 	FILE *members = fopen("members.csv","rt");
-	while ((c = fgetc(members)) != EOF) {
+	int is_last_entry = 0;
+	while ((c = fgetc(members)) != EOF && !is_last_entry) {
+		users_looped++;
 		while (fgetc(members) != ' ');
 		char uname_existing[11];
 		int i = 0;
@@ -55,8 +59,11 @@ int main (void){
 			return 0;
 		}
 		while (c = fgetc(members)) {
-			if (c == EOF) break;
-			if (c == '\n' || c == '\r') continue;
+			if (c == EOF) {
+				is_last_entry = 1;
+				break;
+			}
+			if (c == '\n' || c == '\r') break;
 		}
 	}
 	fclose(members);
@@ -69,32 +76,49 @@ const char* site_name = "http://cs.mcgill.ca/~jwolf";
 int html_head(void) {
 	printf("Content-Type:text/html\n\n");
 	printf("<html>\n");
+	return 0;
 }
 
-int fail_page(char *message) {
-	html_head();
-	printf("<title> Login </title>\n");
+int html_body_start(void) {
 	printf("<center>\n");
 	printf("<head>\n");
 	printf("<b> PaperPlanes </b> <br />\n");
 	printf("Come fly with us. <br />\n");
 	printf("</head>\n");
 	printf("<body>\n");
-	printf("<color=\"red\"> %s </color> <br />\n",message);
-	printf("<a href=\"%s/welcome.html\"> Try again? </a> <br />\n",site_name);
-	printf("<a href=\"%s/register.html\"> Create an account? </a> <br />\n",site_name);
+	return 0;
+}
+
+int html_tail(void) {
 	printf("</body>\n");
 	printf("</center>\n");
 	printf("</html>\n");
+	return 0;
+}
+
+int fail_page(char *message) {
+	html_head();
+	printf("<title> Login </title>\n");
+	html_body_start();
+	printf("<color=\"red\"> %s </color> <br />\n",message);
+	printf("<a href=\"%s/welcome.html\"> Try again? </a> <br />\n",site_name);
+	printf("<a href=\"%s/register.html\"> Create an account? </a> <br />\n",site_name);
+	printf("Number of users looped through: %d <br />\n",users_looped); //D-TODO remove line
+	html_tail();
+	return 0;
 }
 
 int login(char *uname) {
 	html_head();
-	//printf("<form action=\"./MyFacebookPage.py\" method=\"post\">\n");
-	//printf("<input type=\"hidden\" value=%s>\n",uname);
-	//printf("</form>\n");
-	printf("Success! logged in as %s",uname);
-	printf("</html>\n");
+	printf("<title> Welcome </title>\n");
+	html_body_start();	
+	printf("Success! <br />\n");
+	printf("<form action=\"./mainPage.sh\" method=\"post\">\n");
+	printf("<input type=\"hidden\" name=\"action\" value=\"login\">\n");
+	printf("<input type=\"hidden\" name=\"uname\" value=\"%s\">\n",uname);
+	printf("<input type=\"submit\" value=\"Continue to the site.\">\n");
+	printf("</form>\n");
+	html_tail();
 	return 0;
 }
 
@@ -109,3 +133,4 @@ int bad_uname(char *uname) {
 	fail_page(message);
 	return 0;
 }
+
