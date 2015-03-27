@@ -7,8 +7,6 @@ int login (char *uname);
 int bad_pass (char *uname);
 int bad_uname (char *uname);
 
-int users_looped = 0; //D-TODO remove line
-
 int main (void){
 	int length = atoi(getenv("CONTENT_LENGTH"));
 	char input[60];
@@ -37,7 +35,6 @@ int main (void){
 	FILE *members = fopen("members.csv","rt");
 	int is_last_entry = 0;
 	while ((c = fgetc(members)) != EOF && !is_last_entry) {
-		users_looped++;
 		while (fgetc(members) != ' ');
 		char uname_existing[11];
 		int i = 0;
@@ -103,7 +100,6 @@ int fail_page(char *message) {
 	printf("<color=\"red\"> %s </color> <br />\n",message);
 	printf("<a href=\"%s/welcome.html\"> Try again? </a> <br />\n",site_name);
 	printf("<a href=\"%s/register.html\"> Create an account? </a> <br />\n",site_name);
-	printf("Number of users looped through: %d <br />\n",users_looped); //D-TODO remove line
 	html_tail();
 	return 0;
 }
