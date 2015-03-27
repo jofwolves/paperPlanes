@@ -1,0 +1,12 @@
+#! /bin/bash
+
+echo -n "Are you sure you want to clear all users? "
+read yesno
+case $yesno in
+	[Yy] | [Yy][Ee][Ss] ) ;;
+	* ) exit 0 ;;
+esac
+echo "deleting user database"
+rm members.csv
+touch members.csv
+chmod 600 members.csv

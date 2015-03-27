@@ -1,0 +1,12 @@
+#! /bin/bash
+
+echo -n "Are you sure you want to clear all topics? "
+read yesno
+case $yesno in
+	[Yy] | [Yy][Ee][Ss] ) ;;
+	* ) exit 0 ;;
+esac
+echo "Removing topic database"
+rm topic.csv
+touch topic.csv
+chmod 600 topic.csv
