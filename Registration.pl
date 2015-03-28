@@ -15,7 +15,6 @@ close($fh);
 
 my $user_exists = 0;
 foreach (@existing_users) {
-	#$user_exists = grep("/^[a-zA-Z]{1,10} /$uname/*$/",$_);
 	my @user_data = split(/ /,$_);
 	last if (scalar(@user_data) < 3); # end of list
 	if ($user_data[1] eq $uname) {
@@ -35,7 +34,7 @@ if ($user_exists) {
 	print "	</head>\n";
 	print "	<body>\n";
 	print "		The username $uname is already taken; sorry about that. <br />\n";
-	print "		<a href=\"http://cs.mcgill.ca/~jwolf/register.html\">";
+	print "		<a href=\"http://cs.mcgill.ca/~jwolf/register.html\">\n";
 	print "			Try a different one?\n";
 	print "		</a>\n";
 	print "	</body>\n";
@@ -56,7 +55,7 @@ else {
 	print "	</head>\n";
 	print "	<body>\n";
 	print "		Congratulations! Your account has been created. <br />\n";
-	print "		<a href=\"http://cs.mcgill.ca/~jwolf/welcome.html\">";
+	print "		<a href=\"http://cs.mcgill.ca/~jwolf/welcome.html\">\n";
 	print "			Login now and get started!\n";
 	print "		</a>\n";
 	print "	</body>\n";
