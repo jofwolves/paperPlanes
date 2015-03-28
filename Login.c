@@ -78,16 +78,16 @@ int html_head(void) {
 
 int html_body_start(void) {
 	printf("<center>\n");
-	printf("<head>\n");
-	printf("<b> PaperPlanes </b> <br />\n");
-	printf("Come fly with us. <br />\n");
-	printf("</head>\n");
-	printf("<body>\n");
+	printf("\t<head>\n");
+	printf("\t\t<b> PaperPlanes </b> <br />\n");
+	printf("\t\tCome fly with us. <br />\n");
+	printf("\t</head>\n");
+	printf("\t<body>\n");
 	return 0;
 }
 
 int html_tail(void) {
-	printf("</body>\n");
+	printf("\t</body>\n");
 	printf("</center>\n");
 	printf("</html>\n");
 	return 0;
@@ -97,9 +97,9 @@ int fail_page(char *message) {
 	html_head();
 	printf("<title> Login </title>\n");
 	html_body_start();
-	printf("<color=\"red\"> %s </color> <br />\n",message);
-	printf("<a href=\"%s/welcome.html\"> Try again? </a> <br />\n",site_name);
-	printf("<a href=\"%s/register.html\"> Create an account? </a> <br />\n",site_name);
+	printf("\t\t<color=\"red\"> %s </color> <br />\n",message);
+	printf("\t\t<a href=\"%s/welcome.html\"> Try again? </a> <br />\n",site_name);
+	printf("\t\t<a href=\"%s/register.html\"> Create an account? </a> <br />\n",site_name);
 	html_tail();
 	return 0;
 }
@@ -108,12 +108,12 @@ int login(char *uname) {
 	html_head();
 	printf("<title> Welcome </title>\n");
 	html_body_start();	
-	printf("Success! <br />\n");
-	printf("<form action=\"./mainPage.sh\" method=\"post\">\n");
-	printf("<input type=\"hidden\" name=\"action\" value=\"login\">\n");
-	printf("<input type=\"hidden\" name=\"uname\" value=\"%s\">\n",uname);
-	printf("<input type=\"submit\" value=\"Continue to the site.\">\n");
-	printf("</form>\n");
+	printf("\t\tSuccess! <br />\n");
+	printf("\t\t<form action=\"./mainPage.sh\" method=\"post\">\n");
+	printf("\t\t\t<input type=\"hidden\" name=\"action\" value=\"login\">\n");
+	printf("\t\t\t<input type=\"hidden\" name=\"uname\" value=\"%s\">\n",uname);
+	printf("\t\t\t<input type=\"submit\" value=\"Continue to the site.\">\n");
+	printf("\t\t</form>\n");
 	html_tail();
 	return 0;
 }
