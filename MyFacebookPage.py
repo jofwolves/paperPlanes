@@ -91,7 +91,7 @@ def print_topics (): # prints them backwards
 				topics_authors.append(crt_uname)
 	print "<br /> What your fellow paper airplane enthusiasts are up to: <br />"
 	max_topic = len(topics_content)-1
-	min_topic = max_topic-10 if (max_topic-10 > 0) else 0
+	min_topic = max_topic-10 if (max_topic-10 > -1) else -1
 	for i in range(max_topic,min_topic,-1):
 		crt_uname = topics_authors[i]
 		crt_name = get_name(crt_uname)
