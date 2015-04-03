@@ -8,6 +8,7 @@ my $name = param('name');
 my $uname = param('uname');
 my $pass = param('pass');
 
+my $admin_names = "jofwolves";
 
 my $members_file = "members.csv";
 open(my $fh,'<',$members_file);
@@ -57,9 +58,17 @@ else {
 		print "			Try again?\n";
 		print "		</a>\n";
 	}
+	elsif ($name !~ /\w/ ||
+		$uname !~ /\w/ ||
+		$pass !~ /\w/) {
+		print " 	Each field must contain at least one character. <br />\n";
+		print "		<a href=\"http://cs.mcgill.ca/~jwolf/register.html\">\n";
+		print "			Try again?\n";
+		print "		</a>\n";
+	}
 	else {
 		open(my $fh,'>>',$members_file);
-		print $fh "$name $uname $pass \n";
+		print $fh "$name $uname $pass $admin_names \n";
 		close($fh);
 		print "		Congratulations! Your account has been created. <br />\n";
 		print "		<a href=\"http://cs.mcgill.ca/~jwolf/welcome.html\">\n";

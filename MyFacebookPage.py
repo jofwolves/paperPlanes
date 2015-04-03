@@ -12,11 +12,12 @@ def get_name (username): # fully functional
 	with open('members.csv','r') as users_file:
 		for line in users_file:
 			user_data = line.split()
-			if (user_data[1] != username):
-				continue
 			if (len(user_data) < 3):
 				continue
+			if (user_data[1] != username):
+				continue
 			return user_data[0]
+	return "unregistered user"
 
 def add_topic (topic): # fully functional
 	with open('topic.csv','a') as topics_file:
@@ -29,9 +30,9 @@ def get_friends (): # seems functional
 	with open('members.csv','r') as users_file:
 		for line in users_file:
 			user_data = line.split()
-			if (user_data[1] != uname):
-				continue
 			if (len(user_data) < 3):
+				continue
+			if (user_data[1] != uname):
 				continue
 			friends = user_data[3:]
 			break
@@ -65,6 +66,11 @@ elif (action == "add_friend"):
 	friend_name = form.getfirst('friend_name')
 	add_friend(friend_name)
 
+if (action == "more_topics"):
+	n_topics = int(form.getfirst('n_topics')) + 10
+else:
+	n_topics = 10
+
 name = get_name(uname)
 
 def print_topics (): # prints them backwards
@@ -91,7 +97,7 @@ def print_topics (): # prints them backwards
 				topics_authors.append(crt_uname)
 	print "<br /> What your fellow paper airplane enthusiasts are up to: <br />"
 	max_topic = len(topics_content)-1
-	min_topic = max_topic-10 if (max_topic-10 > -1) else -1
+	min_topic = max_topic-n_topics if (max_topic-n_topics > -1) else -1
 	for i in range(max_topic,min_topic,-1):
 		crt_uname = topics_authors[i]
 		crt_name = get_name(crt_uname)
@@ -136,6 +142,12 @@ try:
 except Exception as e:
 	print "	Something's not right. Topics will be back later. <br />"
 	print "	Error: ",e," <br />"
+print "		<form action=\"./mainPage.sh\" method=\"post\">"
+print "			<input type=\"hidden\" name=\"action\" value=\"more_topics\">"
+print "			<input type=\"hidden\" name=\"uname\" value=\"%s\">\n" % uname
+print "			<input type=\"hidden\" name=\"n_topics\" value=\"%d\">\n" % n_topics
+print "			<input type=\"submit\" value=\"View more topics\"> <br />"
+print "		</form>"
 try:
 	print_members()
 except:

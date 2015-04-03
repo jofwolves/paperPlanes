@@ -7,6 +7,8 @@ int login (char *uname);
 int bad_pass (char *uname);
 int bad_uname (char *uname);
 
+//const char *admin_names = "jwolf";
+
 int main (void){
 	int length = atoi(getenv("CONTENT_LENGTH"));
 	char input[60];
@@ -110,8 +112,9 @@ int login(char *uname) {
 	html_body_start();	
 	printf("\t\tSuccess! <br />\n");
 	printf("\t\t<form action=\"./mainPage.sh\" method=\"post\">\n");
-	printf("\t\t\t<input type=\"hidden\" name=\"action\" value=\"login\">\n");
-	printf("\t\t\t<input type=\"hidden\" name=\"uname\" value=\"%s\">\n",uname);
+	//printf("\t\t\t<input type=\"hidden\" name=\"action\" value=\"add_friend\">\n");
+	//printf("\t\t\t<input type=\"hidden\" name=\"friend_name\" value=\"%s\">\n",admin_names);
+	//printf("\t\t\t<input type=\"hidden\" name=\"uname\" value=\"%s\">\n",uname);
 	printf("\t\t\t<input type=\"submit\" value=\"Continue to the site.\">\n");
 	printf("\t\t</form>\n");
 	html_tail();
