@@ -83,7 +83,8 @@ if (action == "add_topic"):
 elif (action == "add_friend"):
 	friend_name = form.getfirst('friend_name')
 	add_friend(friend_name)
-elif (action == "more_topics"):
+
+if (action == "more_topics"):
 	n_topics = int(form.getfirst('n_topics')) + 10
 else:
 	n_topics = 10
