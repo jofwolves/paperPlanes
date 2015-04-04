@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ $1 == "rbelya" ];then
+	sed -i -- 's/rbelya/rbelya/g' *
+elif [ $2 == "rbelya" ];then
+	sed -i -- 's/rbeyla/rbelya/g' *
+else 
+	echo "Wrong input"
+fi
