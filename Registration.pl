@@ -8,6 +8,11 @@ my $name = param('name');
 my $uname = param('uname');
 my $pass = param('pass');
 
+#
+# add your name to this list (space separated)
+# in order to automatically be added to peoples
+# friend lists, MySpace Tom-style
+#
 my $admin_names = "jofwolves";
 
 my $members_file = "members.csv";
@@ -25,6 +30,9 @@ foreach (@existing_users) {
 	}
 }
 
+#
+# prints standard header to html file
+#
 sub html_head {
 	print "<html>\n";
 	print "<title> Become a Member </title>\n";
@@ -36,7 +44,7 @@ sub html_head {
 }
 
 print "Content-Type:text/html\n\n";
-if ($user_exists) {
+if ($user_exists) { # let the user try again with a different username
 	&html_head;
 	print "	<body>\n";
 	print "		The username $uname is already taken; sorry about that. <br />\n";
@@ -50,23 +58,23 @@ if ($user_exists) {
 else {
 	&html_head;
 	print "	<body>\n";
-	if ($name =~ /\W/ ||
-		$uname =~ /\W/ ||
-		$pass =~ /\W/) {
+	if ($name =~ /\W/ ||	# don't let anyone use a
+		$uname =~ /\W/ ||	# name, username, or password
+		$pass =~ /\W/) {	# that contains non-word characters
 		print " 	Only alphanumeric characters and underscores are allowed. <br />\n";
 		print "		<a href=\"http://cs.mcgill.ca/~jwolf/register.html\">\n";
 		print "			Try again?\n";
 		print "		</a>\n";
 	}
-	elsif ($name !~ /\w/ ||
-		$uname !~ /\w/ ||
-		$pass !~ /\w/) {
+	elsif ($name !~ /\w/ ||	# make sure each field contains
+		$uname !~ /\w/ ||	# at least one character
+		$pass !~ /\w/) { 	# (otherwise the .csv gets ugly)
 		print " 	Each field must contain at least one character. <br />\n";
 		print "		<a href=\"http://cs.mcgill.ca/~jwolf/register.html\">\n";
 		print "			Try again?\n";
 		print "		</a>\n";
 	}
-	else {
+	else { # everything was a success! add them to the "database"
 		open(my $fh,'>>',$members_file);
 		print $fh "$name $uname $pass $admin_names \n";
 		close($fh);
