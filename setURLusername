@@ -7,3 +7,5 @@ elif [ $2 == "rbelya" ];then
 else 
 	echo "Wrong input"
 fi
+
+gcc -o Login.cgi Login.c
