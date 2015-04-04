@@ -9,21 +9,41 @@
 	-display site name
 	display group name
 -->
-<title> Login </title>
-<center>
-	<head>
-		<b> PaperPlanes </b> <br />
-		Come fly with us <br /> 
-	</head>
-	<body>
+<head>
+	<title>PaperPlanes </title>
+</head>
+<body>
+<table height=100% width=100% cellspacing="0" cellpadding="0" border="0" background="pictures/bg1.jpg">
+<tr><td align=center>
+		<h1> PaperPlanes </h1>
+		<h4>Come fly with us</h4>
+		<marquee behavior="scroll" direction="left">
+		<img src="./pictures/pap1.png" alt="Flying plane" width=100>
+		</marquee>
+
+		<p>Text about planebout planes
+		Text abo	ut planesText about planes
+		Text about planes
+		Text about planes
+		Text ab	out planes
+		Text about planes
+		</p> 
 		<form action="./Login.cgi" method="post">
-			Username: <input type="text" name="uname" maxlength="10"> <br />
-			Password: <input type="password" name="pass" maxlength="20"> <br />
+			<fieldset width=250px>
+			<legend>Login</legend>
+			<p>Username: <input type="text" name="uname" maxlength="10"/> <br /></p>
+			<p>Password: <input type="password" name="pass" maxlength="20"/> <br /></p>
 			<input type="submit" value="Login"> <br />
+			</fieldset>
 		</form>
 		Not already a member?
 		<a href="http://cs.mcgill.ca/~rbelya/register.html"> Join now! </a>
-	</body>
-</center>
+
+		<marquee behavior="scroll" direction="left">
+		<img src="./pictures/pap1.png" alt="Flying plane" width=100>
+		</marquee>
+</td></tr>
+</table>
+</body>
 </html>
 
