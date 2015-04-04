@@ -150,13 +150,12 @@ def print_members ():
 
 print "Content-Type:text/html\n\n"
 print "<html>"
-print "<title> Home </title>"
-print "<center>"
 print "	<head>"
-print "		<b> PaperPlanes </b> <br />"
-print "		Come fly with us, %s! <br />" % name
+print "<title> Home </title>"
 print "	</head>"
 print "	<body>"
+print "		<b> PaperPlanes </b> <br />"
+print "		Come fly with us, %s! <br />" % name
 print "		<a href=\"http://cs.mcgill.ca/~rbelya/welcome.html\">" # EDIT THIS LINE
 print "			Logout"
 print "		</a> <br />"
