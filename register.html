@@ -4,25 +4,35 @@
 	submit button labeled "Register"
 	hyperref to welcome.html
 -->
+<head>
 <title> Become a Member </title>
-<center>
-	<head>
-		<b> PaperPlanes </b> <br />
-		Come fly with us. <br />
-	</head>
-	<body>
-		Create an account: <br />
+</head>
+<body>
+	<table height=100% width=100% cellspacing="0" cellpadding="0" border="0" background="pictures/bg1.jpg">
+	<tr><td align=center>
+		<h1> PaperPlanes </h1>
+		<h4>Come fly with us</h4>
+		<marquee behavior="scroll" direction="left">
+		<img src="./pictures/pap1.png" alt="Flying plane" width=100>
+		</marquee>
+
 		<form action="./registerUser.sh" method="post">
-			First name (alpha only):
-				<input type="text" name="name" maxlength="10"> <br />
-			Desired username:
-				<input type="text" name="uname" maxlength="10"> <br />
-			Password:
-				<input type="password" name="pass" maxlength="20"> <br />
+			<fieldset width=250px>
+			<legend>Create an account:</legend>
+
+			<p>First name (alpha only):
+				<input type="text" name="name" maxlength="10"> <br /></p>
+			<p>Desired username:
+				<input type="text" name="uname" maxlength="10"> <br /></p>
+			<p>Password:
+				<input type="password" name="pass" maxlength="20"> <br /></p>
 			<input type="submit" name="Register!"> <br />
+			</fieldset>
 		</form>
-		<a href="http://cs.mcgill.ca/~jwolf/welcome.html"> Go back </a>
-	</body>
+		<a href="http://cs.mcgill.ca/~rbelya/welcome.html"> Go back </a>
+	</td></tr>
+	</table>
+</body>
 </center>
 </html>
 
