@@ -157,7 +157,7 @@ print "		<b> PaperPlanes </b> <br />"
 print "		Come fly with us, %s! <br />" % name
 print "	</head>"
 print "	<body>"
-print "		<a href=\"http://cs.mcgill.ca/~jwolf/welcome.html\">" # EDIT THIS LINE
+print "		<a href=\"http://cs.mcgill.ca/~rbelya/welcome.html\">" # EDIT THIS LINE
 print "			Logout"
 print "		</a> <br />"
 print "		<form action=\"./mainPage.sh\" method=\"post\">"

@@ -48,7 +48,7 @@ if ($user_exists) { # let the user try again with a different username
 	&html_head;
 	print "	<body>\n";
 	print "		The username $uname is already taken; sorry about that. <br />\n";
-	print "		<a href=\"http://cs.mcgill.ca/~jwolf/register.html\">\n";
+	print "		<a href=\"http://cs.mcgill.ca/~rbelya/register.html\">\n";
 	print "			Try a different one?\n";
 	print "		</a>\n";
 	print "	</body>\n";
@@ -62,7 +62,7 @@ else {
 		$uname =~ /\W/ ||	# name, username, or password
 		$pass =~ /\W/) {	# that contains non-word characters
 		print " 	Only alphanumeric characters and underscores are allowed. <br />\n";
-		print "		<a href=\"http://cs.mcgill.ca/~jwolf/register.html\">\n";
+		print "		<a href=\"http://cs.mcgill.ca/~rbelya/register.html\">\n";
 		print "			Try again?\n";
 		print "		</a>\n";
 	}
@@ -70,7 +70,7 @@ else {
 		$uname !~ /\w/ ||	# at least one character
 		$pass !~ /\w/) { 	# (otherwise the .csv gets ugly)
 		print " 	Each field must contain at least one character. <br />\n";
-		print "		<a href=\"http://cs.mcgill.ca/~jwolf/register.html\">\n";
+		print "		<a href=\"http://cs.mcgill.ca/~rbelya/register.html\">\n";
 		print "			Try again?\n";
 		print "		</a>\n";
 	}
@@ -79,7 +79,7 @@ else {
 		print $fh "$name $uname $pass $admin_names \n";
 		close($fh);
 		print "		Congratulations! Your account has been created. <br />\n";
-		print "		<a href=\"http://cs.mcgill.ca/~jwolf/welcome.html\">\n";
+		print "		<a href=\"http://cs.mcgill.ca/~rbelya/welcome.html\">\n";
 		print "			Login now and get started!\n";
 		print "		</a>\n";
 	}

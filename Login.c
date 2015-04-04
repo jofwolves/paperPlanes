@@ -71,7 +71,7 @@ int main (void){
 /**
  * edit site_name to run from a separate home page!
  */
-const char* site_name = "http://cs.mcgill.ca/~jwolf";
+const char* site_name = "http://cs.mcgill.ca/~rbelya";
 
 /**
  * prints header to html output
@@ -131,6 +131,8 @@ int login(char *uname) {
 	html_body_start();	
 	printf("\t\tSuccess! <br />\n");
 	printf("\t\t<form action=\"./mainPage.sh\" method=\"post\">\n");
+	printf("\t\t\t<input type=\"hidden\" name=\"uname\" value=\%s>\n",uname);
+
 	printf("\t\t\t<input type=\"submit\" value=\"Continue to the site.\">\n");
 	printf("\t\t</form>\n");
 	html_tail();
