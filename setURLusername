@@ -9,3 +9,4 @@ else
 fi
 
 gcc -o Login.cgi Login.c
+chmod 755 Login.c
