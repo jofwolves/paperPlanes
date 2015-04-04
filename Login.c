@@ -131,6 +131,8 @@ int login(char *uname) {
 	html_body_start();	
 	printf("\t\tSuccess! <br />\n");
 	printf("\t\t<form action=\"./mainPage.sh\" method=\"post\">\n");
+	printf("\t\t\t<input type=\"hidden\" name=\"uname\" value=\%s>\n",uname);
+
 	printf("\t\t\t<input type=\"submit\" value=\"Continue to the site.\">\n");
 	printf("\t\t</form>\n");
 	html_tail();
