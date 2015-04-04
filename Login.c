@@ -71,7 +71,7 @@ int main (void){
 /**
  * edit site_name to run from a separate home page!
  */
-const char* site_name = "http://cs.mcgill.ca/~jwolf";
+const char* site_name = "http://cs.mcgill.ca/~rbelya";
 
 /**
  * prints header to html output
