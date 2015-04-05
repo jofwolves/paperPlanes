@@ -77,12 +77,25 @@ def add_friend (friend):
 #
 # respond to any forms sent by this page itself
 #
+already_friend = False
+no_such_user = False
+myself = False
 if (action == "add_topic"):
 	topic = form.getfirst('topic')
 	add_topic(topic)
 elif (action == "add_friend"):
 	friend_name = form.getfirst('friend_name')
-	add_friend(friend_name)
+        if (get_name(friend_name) == "unregistered user"):
+		no_such_user = True
+	elif (friend_name == uname):
+		myself = True
+	elif (friend_name in get_friends()):
+		already_friend = True
+	else:
+		no_such_user = False
+		myself = False
+		already_friend = False
+		add_friend(friend_name)
 
 if (action == "more_topics"):
 	n_topics = int(form.getfirst('n_topics')) + 10
@@ -121,22 +134,34 @@ def print_topics ():
 					skip_entry = 1
 					continue
 				topics_authors.append(crt_uname)
-	print "<br /> What your fellow paper airplane enthusiasts are up to: <br />"
+	print "<br /><h4>What your fellow paper airplane enthusiasts are up to:</h4><br />"
 	max_topic = len(topics_content)-1
 	min_topic = max_topic-n_topics if (max_topic-n_topics > -1) else -1
 	for i in range(max_topic,min_topic,-1): # print the topics in reverse order
 		crt_uname = topics_authors[i]
 		crt_name = get_name(crt_uname)
 		crt_topic = topics_content[i]
-		print "%s (%s) says: <br />" % (crt_name,crt_uname)
+		print "<em>%s (%s)</em> says: " % (crt_name,crt_uname)
 		print "%s <br /> <br />" % crt_topic
 	return
-	
+
+def print_friends():
+	"""
+	prints all friends of current user
+	"""	
+	my_friends = get_friends()
+	print "<h4>My friends:</h4>\n"
+	print "<em>Name (Username)</em><br /><br />\n"
+	for friend in my_friends:
+		print "%s (%s)<br />" % (get_name(friend),friend)
+	print "<br /> <br />"
+		
 def print_members ():
 	"""
 	print name and username from each line of members.csv
 	"""
-	print "<br /> Who else is a paper airplane enthusiast? <br />"
+	print "<h4>Who else is a paper airplane enthusiast?</h4>\n"
+	print "<em>Name (Username)</em><br /><br />\n"
 	with open('members.csv','r') as users_file:
 		for line in users_file:
 			user_data = line.split()
@@ -144,26 +169,64 @@ def print_members ():
 				break
 			crt_name = user_data[0]
 			crt_uname = user_data[1]
-			print "%s (%s); &nbsp;" % (crt_name,crt_uname)
+			print "%s (%s)<br />" % (crt_name,crt_uname)
 	print "<br /> <br />"
 	return
 
 print "Content-Type:text/html\n\n"
-print "<html>"
-print "<title> Home </title>"
-print "<center>"
-print "	<head>"
-print "		<b> PaperPlanes </b> <br />"
-print "		Come fly with us, %s! <br />" % name
-print "	</head>"
-print "	<body>"
+print "<html>\n"
+print "<head>\n"
+print "<title> Home </title>\n"
+print "</head>\n"
+print "<body>\n"
+print "<table height=100% width=100% cellspacing=\"5\" cellpadding=\"2\" border=\"1\" background=\"pictures/bg1.jpg\">\n"
+
+#################TOP of page(header)############################
+print "<td colspan=\"6\" align=\"center\">\n"
+print "		<h1> PaperPlanes </h1>\n"
+print "		<h4>Come fly with us, %s! </h4>\n" % name
+print "		<marquee behavior=\"scroll\" direction=\"left\">\n"
+print "		<img src=\"./pictures/pap1.png\" alt=\"Flying plane\" width=100>\n"
+print "		</marquee>\n"
+
 print "		<a href=\"http://cs.mcgill.ca/~rbelya/welcome.html\">" # EDIT THIS LINE
 print "			Logout"
-print "		</a> <br />"
+print "		</a>"
+print "</td>\n"
+###########################################################
+
+####################LEFT COLUMN##############################
+print "<tr>\n"
+print "<td rowspan=\"4\" valign=\"top\">\n"
+try:
+	print_friends()
+except Exception as e:
+	print "	Something's not right. Topics will be back later. <br />"
+	print "	Error: ",e," <br />"
+print "		<form action=\"./mainPage.sh\" method=\"post\">"
+print "			<input type=\"hidden\" name=\"action\" value=\"add_friend\">"
+print "			<input type=\"hidden\" name=\"uname\" value=\"%s\">\n" % uname
+print "			Add someone to your list of friends (by username): <br />"
+print "				<input type=\"text\" name=\"friend_name\"> <br />"
+print "			<input type=\"submit\" value=\"Add friend!\"> <br />"
+print "		</form>"
+if (no_such_user is True):
+	print "<font color=\"red\">User %s does not exist</font>\n" %friend_name
+elif (myself is True):
+	print "<font color=\"red\">Cannot add yourself as a friend</font>\n"
+elif (already_friend is True):
+	print "<font color=\"red\">User %s is already your friend</font>\n" %friend_name
+print "</td>\n"
+print "</td>\n"
+print "</td>\n"
+#######################################3###############
+
+###################CENTER COLUMN########################################
+print "<td colspan=\"4\" rowspan=\"4\" align=\"center\" valign=\"top\">\n"
 print "		<form action=\"./mainPage.sh\" method=\"post\">"
 print "			<input type=\"hidden\" name=\"action\" value=\"add_topic\">"
 print "			<input type=\"hidden\" name=\"uname\" value=\"%s\">\n" % uname
-print "			Write a topic: <input type=\"text\" name=\"topic\"> <br />"
+print "			Write a topic: <input type=\"text\" size=\"60\" name=\"topic\"> <br />"
 print "			<input type=\"submit\" value=\"Post it.\"> <br />"
 print "		</form>"
 try:
@@ -177,18 +240,22 @@ print "			<input type=\"hidden\" name=\"uname\" value=\"%s\">\n" % uname
 print "			<input type=\"hidden\" name=\"n_topics\" value=\"%d\">\n" % n_topics
 print "			<input type=\"submit\" value=\"View more topics\"> <br />"
 print "		</form>"
+print "</td>\n"
+######################################################
+
+########################RIGHT COLUMN####################
+print "<td rowspan=\"4\" valign=\"top\">\n"
 try:
 	print_members()
 except:
 	print "	Something's not right. User list will be back later <br />"
-print "		<form action=\"./mainPage.sh\" method=\"post\">"
-print "			<input type=\"hidden\" name=\"action\" value=\"add_friend\">"
-print "			<input type=\"hidden\" name=\"uname\" value=\"%s\">\n" % uname
-print "			Add someone to your list of friends (by username): <br />"
-print "				<input type=\"text\" name=\"friend_name\"> <br />"
-print "			<input type=\"submit\" value=\"Add friend!\"> <br />"
-print "		</form>"
-print "	</body>"
-print "</center>"
+print "</td>\n"
+#################################################
+
+print "</tr> <tr> </tr><tr> </tr><tr></tr>\n"
+
+
+print "</table>\n"
+print "</body>\n"
 print "</html>"
 
