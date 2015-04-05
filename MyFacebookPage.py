@@ -88,8 +88,8 @@ elif (action == "add_friend"):
         if (get_name(friend_name) == "unregistered user"):
 		no_such_user = True
 	elif (friend_name == uname):
-		myself = Truei
-	elif (already_friend in get_friends()):
+		myself = True
+	elif (friend_name in get_friends()):
 		already_friend = True
 	else:
 		no_such_user = False
