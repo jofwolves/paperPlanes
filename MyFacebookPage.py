@@ -219,7 +219,7 @@ print "<td colspan=\"4\" rowspan=\"4\" align=\"center\" valign=\"top\">\n"
 print "		<form action=\"./mainPage.sh\" method=\"post\">"
 print "			<input type=\"hidden\" name=\"action\" value=\"add_topic\">"
 print "			<input type=\"hidden\" name=\"uname\" value=\"%s\">\n" % uname
-print "			Write a topic: <input type=\"text\" name=\"topic\"> <br />"
+print "			Write a topic: <input type=\"text\" size=\"60\" name=\"topic\"> <br />"
 print "			<input type=\"submit\" value=\"Post it.\"> <br />"
 print "		</form>"
 try:
