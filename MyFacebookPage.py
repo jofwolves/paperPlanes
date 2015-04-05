@@ -77,12 +77,21 @@ def add_friend (friend):
 #
 # respond to any forms sent by this page itself
 #
+no_such_user = False
+myself = False
 if (action == "add_topic"):
 	topic = form.getfirst('topic')
 	add_topic(topic)
 elif (action == "add_friend"):
 	friend_name = form.getfirst('friend_name')
-	add_friend(friend_name)
+        if (get_name(friend_name) == "unregistered user"):
+		no_such_user = True
+	elif (friend_name == uname):
+		myself = True
+	else:
+		no_such_user = False
+		myself = False
+		add_friend(friend_name)
 
 if (action == "more_topics"):
 	n_topics = int(form.getfirst('n_topics')) + 10
@@ -121,14 +130,14 @@ def print_topics ():
 					skip_entry = 1
 					continue
 				topics_authors.append(crt_uname)
-	print "<br /> What your fellow paper airplane enthusiasts are up to: <br />"
+	print "<br /><h4>What your fellow paper airplane enthusiasts are up to:</h4><br />"
 	max_topic = len(topics_content)-1
 	min_topic = max_topic-n_topics if (max_topic-n_topics > -1) else -1
 	for i in range(max_topic,min_topic,-1): # print the topics in reverse order
 		crt_uname = topics_authors[i]
 		crt_name = get_name(crt_uname)
 		crt_topic = topics_content[i]
-		print "%s (%s) says: <br />" % (crt_name,crt_uname)
+		print "<em>%s (%s)</em> says: " % (crt_name,crt_uname)
 		print "%s <br /> <br />" % crt_topic
 	return
 
@@ -197,6 +206,11 @@ print "			Add someone to your list of friends (by username): <br />"
 print "				<input type=\"text\" name=\"friend_name\"> <br />"
 print "			<input type=\"submit\" value=\"Add friend!\"> <br />"
 print "		</form>"
+if (no_such_user is True):
+	print "<font color=\"red\">User %s does not exist</font>\n" %friend_name
+elif (myself is True):
+	print "<font color=\"red\">Cannot add yourself as a friend</font>\n"
+print "</td>\n"
 print "</td>\n"
 #######################################3###############
 
