@@ -77,6 +77,7 @@ def add_friend (friend):
 #
 # respond to any forms sent by this page itself
 #
+already_friend = False
 no_such_user = False
 myself = False
 if (action == "add_topic"):
@@ -87,10 +88,13 @@ elif (action == "add_friend"):
         if (get_name(friend_name) == "unregistered user"):
 		no_such_user = True
 	elif (friend_name == uname):
-		myself = True
+		myself = Truei
+	elif (already_friend in get_friends()):
+		already_friend = True
 	else:
 		no_such_user = False
 		myself = False
+		already_friend = False
 		add_friend(friend_name)
 
 if (action == "more_topics"):
@@ -210,6 +214,9 @@ if (no_such_user is True):
 	print "<font color=\"red\">User %s does not exist</font>\n" %friend_name
 elif (myself is True):
 	print "<font color=\"red\">Cannot add yourself as a friend</font>\n"
+elif (already_friend is True):
+	print "<font color=\"red\">User %s is already your friend</font>\n" %friend_name
+print "</td>\n"
 print "</td>\n"
 print "</td>\n"
 #######################################3###############
