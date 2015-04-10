@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ $1 == "jwolf" ];then
+	sed -i -- 's/rbelya/jwolf/g' *
+elif [ $2 == "rbelya" ];then
+	sed -i -- 's/jwolf/rbelya/g' *
+else 
+	echo "Wrong input"
+fi
+
+gcc -o Login.cgi Login.c
+chmod 755 Login.cgi

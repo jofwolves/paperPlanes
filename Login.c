@@ -88,12 +88,16 @@ int html_head(void) {
  * html_head() output and this
  */
 int html_body_start(void) {
-	printf("<center>\n");
-	printf("\t<head>\n");
-	printf("\t\t<b> PaperPlanes </b> <br />\n");
-	printf("\t\tCome fly with us. <br />\n");
-	printf("\t</head>\n");
-	printf("\t<body>\n");
+	printf("<body>\n");
+	printf("<table height=\"100\%\" width=\"100\%\" cellspacing=\"0\" \
+		cellpadding=\"0\" border=\"0\" background=\"pictures/bg1.jpg\">\n");
+	printf("<tr><td align=center>\n");
+	printf("<h1> PaperPlanes </h1>\n");
+	printf("<h4>Come fly with us</h4>\n");
+	printf("<marquee behavior=\"scroll\" direction=\"left\">\n");
+	printf("<img src=\"./pictures/pap1.png\" alt=\"Flying plane\" width=100>\n");
+	printf("</marquee>\n");
+
 	return 0;
 }
 
@@ -101,6 +105,8 @@ int html_body_start(void) {
  * prints tail of html output
  */
 int html_tail(void) {
+	printf("</td></tr>\n");
+	printf("</table>\n");
 	printf("\t</body>\n");
 	printf("</center>\n");
 	printf("</html>\n");
@@ -115,7 +121,7 @@ int fail_page(char *message) {
 	html_head();
 	printf("<title> Login </title>\n");
 	html_body_start();
-	printf("\t\t<color=\"red\"> %s </color> <br />\n",message);
+	printf("\t\t<font color=\"red\"> %s </font> <br />\n",message);
 	printf("\t\t<a href=\"%s/welcome.html\"> Try again? </a> <br />\n",site_name);
 	printf("\t\t<a href=\"%s/register.html\"> Create an account? </a> <br />\n",site_name);
 	html_tail();
@@ -131,6 +137,7 @@ int login(char *uname) {
 	html_body_start();	
 	printf("\t\tSuccess! <br />\n");
 	printf("\t\t<form action=\"./mainPage.sh\" method=\"post\">\n");
+	printf("\t\t\t<input type=\"hidden\" name=\"uname\" value=\%s>\n",uname);
 	printf("\t\t\t<input type=\"submit\" value=\"Continue to the site.\">\n");
 	printf("\t\t</form>\n");
 	html_tail();
@@ -154,4 +161,3 @@ int bad_uname(char *uname) {
 	fail_page(message);
 	return 0;
 }
-
