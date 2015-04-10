@@ -10,3 +10,4 @@ echo "deleting user database"
 rm members.csv
 touch members.csv
 chmod 600 members.csv
+echo "julian jwolf forever21 " > members.csv
