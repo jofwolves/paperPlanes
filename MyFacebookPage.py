@@ -83,7 +83,8 @@ def add_friend (friend):
 #
 if (action == "add_topic"):
 	topic = form.getfirst('topic')
-	add_topic(topic)
+	if not ("<" in topic or ">" in topic): # thanks obama
+		add_topic(topic)
 elif (action == "add_friend"):
 	friend_name = form.getfirst('friend_name')
 	if (get_name(friend_name) == "unregistered user"):
@@ -145,7 +146,7 @@ def print_friends():
 	prints all friends of current user
 	"""	
 	my_friends = get_friends()
-	print "<h4>My friends:</h4>\n"
+	print "<h4>Your friends:</h4>\n"
 	print "<em>Name (Username)</em><br /><br />\n"
 	for friend in my_friends:
 		print "%s (%s)<br />" % (get_name(friend),friend)
