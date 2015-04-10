@@ -13,7 +13,7 @@ my $pass = param('pass');
 # in order to automatically be added to peoples
 # friend lists, MySpace Tom-style
 #
-my $admin_names = "jofwolves";
+my $admin_names = "jwolf";
 
 my $members_file = "members.csv";
 open(my $fh,'<',$members_file);
@@ -35,12 +35,6 @@ foreach (@existing_users) {
 #
 sub html_head {
 	print "<html>\n";
-	#print "<title> Become a Member </title>\n";
-	#print "<center>\n";
-	#print "	<head>\n";
-	#print "		<b> PaperPlanes </b> <br />\n";
-	#print "		Come fly with us. <br />\n";
-	#print "	</head>\n";
 	print "<head>\n";
 	print "<title>PaperPlanes</title>\n";
 	print "</head>\n";
@@ -64,19 +58,15 @@ sub html_tail{
 print "Content-Type:text/html\n\n";
 if ($user_exists) { # let the user try again with a different username
 	&html_head;
-	#print "	<body>\n";
 	print "		The username $uname is already taken; sorry about that. <br />\n";
 	print "		<a href=\"http://cs.mcgill.ca/~rbelya/register.html\">\n";
 	print "			Try a different one?\n";
 	print "		</a>\n";
 	print "	</body>\n";
-	#print "</center>\n";
-	#print "</html>\n";
 	&html_tail;
 }
 else {
 	&html_head;
-	#print "	<body>\n";
 	if ($name =~ /\W/ ||	# don't let anyone use a
 		$uname =~ /\W/ ||	# name, username, or password
 		$pass =~ /\W/) {	# that contains non-word characters
@@ -102,9 +92,6 @@ else {
 		print "			Login now and get started!\n";
 		print "		</a>\n";
 	}
-	#print "	</body>\n";
-	#print "</center>\n";
-	#print "</html>\n";
 	&html_tail;
 }
 
